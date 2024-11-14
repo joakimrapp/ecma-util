@@ -10,7 +10,7 @@ class Item extends Map {
 	get( ...a ) { for( let b of a ) if( super.has( b ) ) return super.get( b ); return super.get( 'default' ); }
 	set( o ) { for( let b of ( o.b ?? [ 'default' ] ) ) if( !super.has( b ) ) super.set( b, o ); else TARGET_EXISTS.throw( o.n ); return this; } }
 
-export default class extends Map { #e;
+class Registry extends Map { #e;
 	async scan( p ) { this.#e?.emit( SCANNING, p ); for( let i of await find( p, this.#e ) ) this.add( i, this.#e ); return this; }
 	get events() { return this.#e ??= new EventEmitter(); }
 	has( n, ...a ) { return super.get( n )?.has( ...a ); }
@@ -21,3 +21,7 @@ export default class extends Map { #e;
 	scoped( n, i, b ) { return this.add( new Scoped( { n, i, b: b?.split( '.' ) } ) ); }
 	targets( ...a ) { return new Services( this, a, this.#e ); }
 	mock( n, i ) { return new this.constructor( this.entries() ).set( n, { default: new Service( { n, i: i instanceof Function ? i : () => i } ) } ); } }
+
+export default class extends EventEmitter {
+	#o = new Registry;
+}
