@@ -1,0 +1,25 @@
+{
+  "name": "@jrapp/ecma-util",
+  "version": "1.0.0",
+  "description": "Root project for a set of ECMAScript utility-modules",
+  "author": "Joakim J. Rapp",
+  "license": "ISC",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "scripts": {
+    "inst:develop": "for i in $(find ./develop -type f -name package.json -maxdepth 2 -mindepth 2 -exec dirname {} \\;); do npm --prefix $i i & done 2>/dev/null; wait 2>/dev/null;",
+    "inst:runtime": "for i in $(find ./runtime -type f -name package.json -maxdepth 2 -mindepth 2 -exec dirname {} \\;); do npm --prefix $i i & done 2>/dev/null; wait 2>/dev/null;",
+    "lint:develop": "for i in $(find ./develop -type f -name package.json -maxdepth 2 -mindepth 2 -exec dirname {} \\;); do printf \"linting $i... \"; eslint $i; echo \"done\"; done;",
+    "lint:runtime": "for i in $(find ./runtime -type f -name package.json -maxdepth 2 -mindepth 2 -exec dirname {} \\;); do printf \"linting $i... \"; eslint $i; echo \"done\"; done;",
+    "test:runtime": "for i in $(find ./runtime -type f -name package.json -maxdepth 2 -mindepth 2 -exec dirname {} \\;); do echo \"\\ntesting $i...\\n \"; npm --prefix $i test; done;",
+
+    "postinstall": "npm run inst:develop && npm run inst:runtime",
+    "lint": "npm run lint:develop && npm run lint:runtime",
+    "test": "npm run test:runtime"
+  },
+  "devDependencies": {
+    "eslint": "^9.12.0"
+  }
+}

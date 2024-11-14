@@ -1,0 +1,15 @@
+{
+  "name": "@jrapp/node-path",
+  "version": "1.0.0",
+  "description": "fs path resolving",
+  "author": "Joakim J. Rapp",
+  "license": "ISC",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "scripts": {
+    "test": "echo nothing to test...",
+    "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
+  }
+}

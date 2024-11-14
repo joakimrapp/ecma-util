@@ -1,0 +1,23 @@
+# Build targets
+node_modules/
+output/
+
+# Private things, credentials etc
+.private/
+.local/
+.jwt
+.credentials
+.npmrc
+
+# IntelliJ and other similar scheiß
+.vscode/
+.DS_Store
+.idea/
+.idea_modules/
+out/
+*.iws
+*.xml
+*.iml
+*.ipr
+*.iml
+*.orig

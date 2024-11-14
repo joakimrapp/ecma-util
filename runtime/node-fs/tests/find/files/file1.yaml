@@ -1,0 +1,5 @@
+sort: 2
+property1: test
+property2:
+  subProperty1: 2
+  subProperty2: 3
