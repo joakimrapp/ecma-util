@@ -1,5 +1,7 @@
-import { isIterable } from '@jrapp/is-type';
+import { isString, isIterable } from '@jrapp/is-type';
+import { defineProperty, defineProperties } from '../object.mjs';
 import { from } from '../object/index.mjs';
-import { defineProperties } from '../object.mjs';
 
-export default function( o, ...a ) { return defineProperties( o, isIterable( ...a ) ? from( ...a ) : a[ 0 ] ); }
+export default function( o, a ) {
+	return isString( a ) ? defineProperty( ...arguments )[ a ] : defineProperties( o, isIterable( a ) ? from( a ) : a );
+}

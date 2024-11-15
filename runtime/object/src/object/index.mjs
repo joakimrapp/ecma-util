@@ -1,4 +1,4 @@
-export { default as entries } from './entries.mjs';
+export { default as defined } from './defined.mjs';
 export { default as from } from './from.mjs';
 export { default as merge } from './merge.mjs';
 export { default as constructor } from './constructor.mjs';

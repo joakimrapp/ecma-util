@@ -2,14 +2,14 @@ import { isFn } from '@jrapp/is-type';
 import { entries } from '../object.mjs';
 
 function *get( a ) {
-	for( let [ k, v ] of ( a?.entries?.() ?? entries( a ) ) )
-		if( v != null )
-			yield [ k, v ];
+	for( let e of ( a?.entries?.() ?? entries( a ) ) )
+		if( e?.[ 1 ] != null )
+			yield e;
 }
 
 function *map( a, f ) {
-	for( let [ k, v ] of get( a ) )
-		if( v = f( k, v ), v != null )
+	for( let [ k, v ] of ( a?.entries?.() ?? entries( a ) ) )
+		if( ( v != null ) && ( ( v = f( k, v ) ) != null ) )
 			yield [ k, v ];
 }
 

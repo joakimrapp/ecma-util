@@ -6,6 +6,9 @@ class ERROR extends Error {
 	static throw() { throw new this( ...arguments ); } }
 
 export const
+	SERVICE_EXISTS = ERROR.extend( 'SERVICE_EXISTS', ( n, b = 'default' ) => `ioc service ${n} already exists in registry for target ${b}` ),
+
+
 	NOT_EXPORTED = ERROR.extend( 'NOT_EXPORTED' ),
 	TARGET_EXISTS = ERROR.extend( 'TARGET_EXISTS', ( n, b ) => `${n} for ${b} already exists in registry` ),
 	SERVICE_IN_NAMESPACE = ERROR.extend( 'SERVICE_IN_NAMESPACE', ( n, ns ) => `namespace ${ns} and service ${n} not valid` ),

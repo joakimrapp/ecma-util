@@ -7,4 +7,5 @@ export const
 
 export const
 	IOC					= 'ioc',
-	LOG					= 'log';
+	LOG					= 'log',
+	DEFAULT			= 'default';

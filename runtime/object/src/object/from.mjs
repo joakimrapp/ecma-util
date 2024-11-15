@@ -1,12 +1,12 @@
 import { isIterable, isFn } from '@jrapp/is-type';
 import { fromEntries } from '../object.mjs';
 import merge from './merge.mjs';
-import entries from './entries.mjs';
+import entries from './defined.mjs';
 
 function *get( a ) {
-	for( let [ k, v ] of a )
-		if( v != null )
-			yield [ k, v ];
+	for( let e of a )
+		if( e?.[ 1 ] != null )
+			yield e;
 }
 
 export default function( a, f ) {

@@ -1,5 +1,7 @@
 
-
+export const
+	$namespace = 'ns1',
+	$targets = 'bt1';
 
 
 export class X {
@@ -10,7 +12,6 @@ export class Y {
 }
 
 export const
-	$targets = 'buildTarget1',
 	$services = {
 		'ns1.name1': X,
 		'ns1.name2': Y
