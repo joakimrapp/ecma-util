@@ -16,7 +16,8 @@
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
   },
   "dependencies": {
-    "@jrapp/object": "file:../object"
+    "@jrapp/object": "file:../object",
+    "@jrapp/is-type": "file:../is-type"
   },
   "devDependencies": {
     "@jrapp/testing": "file:../../develop/testing"

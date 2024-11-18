@@ -1,7 +1,8 @@
-import { IMPORTING } from '../events.mjs';
-import { NOT_EXPORTED } from '../errors.mjs';
-import { Service, Singleton, Scoped } from './service.mjs';
 import { find, join } from '@jrapp/node-fs';
+import { IMPORTING } from '../events.mjs';
+import { DEFAULT_MISSING, EXPORTS_MISSING } from './errors.mjs';
+import { Service, Singleton, Scoped } from './service.mjs';
+
 
 const
 	scan = '**/*!(.skip|node_modules|.git|target)/*!(.skip).(mjs)',
@@ -10,9 +11,9 @@ const
 
 function *get( p, { $scoped, $singleton, $services, $service, $targets, $namespace, ...o } ) {
 	if( ( $scoped ?? $singleton ?? $services ?? $service ) != null ) {
-		const services = { ...$scoped, ...$singleton, ...$services, ...$service && { [ $service ]: o.default ?? NOT_EXPORTED( `default in ${p}` ) } };
+		const services = { ...$scoped, ...$singleton, ...$services, ...$service && { [ $service ]: o.default ?? DEFAULT_MISSING( p, $service ) } };
 		for( let a in services ) {
-			const n = name( $namespace, a ), i = services[ a ], s = [ p, same( o, i ) ?? NOT_EXPORTED( `${a} in ${p}` ) ];
+			const n = name( $namespace, a ), i = services[ a ], s = [ p, same( o, i ) ?? EXPORTS_MISSING( p, a ) ];
 			const T = $scoped?.[ a ] ? Scoped : $singleton?.[ a ] ? Singleton : Service;
 			yield new T( { n, i, s, b: $targets?.split( ',' ) } ); } } }
 
