@@ -1,20 +1,34 @@
-import { define } from '@jrapp/object';
-import { SCANNING, REGISTERING } from '../events.mjs';
-import { SERVICE_MISSING, TARGETS_MISSING } from './errors.mjs';
-import { EventEmitter } from 'node:events';
-import { Service, Singleton, Scoped } from './service.mjs';
-import find from './find.mjs';
-import Targets from './targets.mjs';
+import { AUTO, TRANSIENT, SINGLETON, SCOPED } from '../constants.mjs';
+import { COMMAND } from '../errors.mjs';
+import { create, getS, getN } from '../service/parse.mjs';
+import { entries } from '@jrapp/object';
+import { isFn, isLiteral, isString } from '@jrapp/is-type';
+import { emit, BUILDING } from '#events';
+import Build from './build.mjs';
 import Services from './services.mjs';
 
-export default class extends Map { #e;
-	#add( o ) { this.#e?.emit( REGISTERING, o ); super.has( o.n ) ? super.get( o.n ).set( o ) : this.set( o.n, new Targets().set( o ) ); return this; }
-	async scan( p ) { this.#e?.emit( SCANNING, p ); for( let i of await find( p, this.#e ) ) this.#add( i, this.#e ); return this; }
-	get events() { return this.#e ??= new EventEmitter(); }
-	has( n, ...a ) { return super.get( n )?.has( ...a ); }
-	get( n, ...a ) { return ( super.get( n ) ?? SERVICE_MISSING.throw( n ) ).get( ...a ) ?? TARGETS_MISSING.throw( ...arguments ); }
-	service( n, i, b ) { return this.#add( new Service( { n, i, b: b?.split( '.' ) } ) ); }
-	singleton( n, i, b ) { return this.#add( new Singleton( { n, i, b: b?.split( '.' ) } ) ); }
-	scoped( n, i, b ) { return this.#add( new Scoped( { n, i, b: b?.split( '.' ) } ) ); }
-	targets( ...a ) { return new Services( this, a, this.#e ); }
-	mock( n, i ) { return new this.constructor( this.entries() ).set( n, new Targets().set( { n, i: i instanceof Function ? i : () => i } ) ); } }
+export default class { #o; #ns; #bt = []; #s;
+	static async source( services, p ) {
+		const { $ioc: a, ...o } = await import( p );
+		if( isFn( a ) ) a( new this( services, getS( p, o ) ) );
+		else if( isLiteral( a ) ) {
+			const ioc = new this( services, getS( p, o ) );
+			for( let [ k, v ] of entries( a ) ) if( k in ioc )
+				if( isLiteral( v ) ) for( let e of entries( v ) ) ioc[ k ]( ...e );
+				else if( isString( v ) ) ioc[ k ]( v ); } }
+	constructor( services = new Services(), s ) { this.#o = services; if( s ) this.#s = s; }
+	namespace( ns ) { return ( this.#ns = ns, this ); }
+	targets( ...bt ) { return ( this.#bt = bt, this ); }
+	config( n, ...bt ) { return this.register( SINGLETON, n, null, bt ); }
+	scope( n, ...bt ) { return this.register( SCOPED, n, null, bt ); }
+	service() { return this.register( AUTO, ...arguments ); }
+	transient() { return this.register( TRANSIENT, ...arguments ); }
+	singleton() { return this.register( SINGLETON, ...arguments ); }
+	scoped() { return this.register( SCOPED, ...arguments ); }
+	register( l, n, f, ...bt ) {
+		return ( this.#o.add( ...create( getN( this.#ns, n ), l, [ ...this.#bt, ...bt ], this.#s?.( f, n ) ?? [ f ] ) ), this ); }
+	set( n, f ) {
+		return ( this.#s ? COMMAND.throw( 'set' ) : this.#o.set( ...create( n, AUTO, [], [ f ] ) ), this ); }
+	build( ...a ) {
+		return ( emit[ BUILDING ]?.( a ), this.#s ? COMMAND.throw( 'build' ) : new Build( this.#o.has( a ), this.#o.get( a ) ) ); }
+}

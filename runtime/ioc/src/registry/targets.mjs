@@ -1,16 +1,22 @@
-import { define } from '@jrapp/object';
-import { SERVICE_EXISTS } from '../errors.mjs';
+import { AMBIGUOUS } from '../errors.mjs';
+import { emit, REGISTERING } from '../debug/events.mjs';
+import { from } from '@jrapp/object';
 
-export default class extends Map {
-	has( ...a ) { return ( this.default != null ) || a.some( i => super.has( i ) ); }
-	get( ...a ) {
-		for( let b of a )
-			if( super.has( b ) )
-				return super.get( b );
-		return this.default; }
-	set( o ) {
-		if( o.b == null )
-			return ( this.default == null ) ? define( this, 'default', { value: o } ) : SERVICE_EXISTS.throw( o.n );
-		for( let b of o.b )
-			super.has( b ) ? SERVICE_EXISTS.throw( o.n, b ) : super.set( b, o );
-		return this; } }
+const
+	DEFAULT = '<default>',
+	get = a => [ ...new Set( a.flat().map( i => i?.match( /\w+/g ) ?? [] ).flat() ) ],
+	add = a => ( a = get( a ) ).length ? a : [ DEFAULT ];
+
+export default class { #o = {}; #a;
+	constructor( a = [] ) {
+		this.#o = from( ( this.#a = a ).map( ( ...e ) => e ) ); }
+	export() { return [ ...this.#a ]; }
+	clone() { return new this.constructor( this.export() ); }
+	*map() { for( let i of arguments ) if( i in this.#o ) yield this.#o[ i ]; }
+	add( a ) { return add( a ).map( i => [ i, ( this.#o[ i ] ??= ( this.#a.push( i ) - 1 ) ) ] ); }
+	has( a ) { return [ ...this.map( DEFAULT, ...get( a ) ) ]; }
+	get( a ) { return [ ...this.map( ...get( a ), DEFAULT ) ]; }
+	set( [ o = {}, a = [], i = a.length ] = [], n, bt, l, f, s, t, d, r ) {
+		emit[ REGISTERING ]?.( { n, ...bt?.length && { bt }, l, ...s && { s }, d, r } );
+		bt = this.add( bt ).map( ( [ btk, bti ] ) => ( bti in o ) ? AMBIGUOUS.throw( n, btk ) : ( o[ bti ] = i, bti ) );
+		return [ o, [ ...a, [ [ l, f, s, t, d, r ], bt ] ] ]; } }

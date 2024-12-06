@@ -28,8 +28,9 @@ const
 			.v( /to|pos/, 'H' ),
 		X.s( /title>(.*?)<\/title/, a => `2;${a}${BEL}`, v => osc( v ) ) ].reduce( ( o, a ) => o.add( a ), new R() ) ) );
 
-export { xtitle, xcolors, H, Grad, sleep };
+export { xtitle, xcolors, H, Grad, sleep, term };
 export const
+	xlen = s => len( xtermify( s ) ),
 	xtermify = s => `${replace( s )}\x1b[0m`,
 	xwrite = ( ...a ) => new Promise( f => write( xtermify( a.join`` ), f ) ),
 	xwriteln = ( ...a ) => new Promise( f => write( `${xtermify( a.join`` )}\n`, f ) );

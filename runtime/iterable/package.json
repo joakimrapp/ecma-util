@@ -1,20 +1,25 @@
 {
-  "name": "@jrapp/is-type",
+  "name": "@jrapp/iterable",
   "version": "1.0.0",
-  "description": "Used to determine type of a value",
+  "description": "iterator functions, such as middlewares, async and conditionals",
   "author": "Joakim J. Rapp",
   "license": "ISC",
   "type": "module",
   "exports": {
-    ".": "./src/index.mjs"
+    ".": "./src/index.mjs",
+    "./build": "./src/build.mjs",
+    "./async": "./src/async/index.mjs",
+    "./generate": "./src/generate/index.mjs"
   },
   "scripts": {
     "pretest": "rm -rf output ; mkdir -p output",
     "test:default": "node --test",
     "test:coverage": "node --test --experimental-test-coverage --no-warnings --test-coverage-include=src/**/*.mjs --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=output/lcov.info",
-
     "test": "if node -v --test-coverage-include=*.mjs > /dev/null 2>&1; then npm run test:coverage; else npm run test:default; fi",
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
+  },
+  "dependencies": {
+    "@jrapp/is-type": "file:../is-type"
   },
   "devDependencies": {
     "@jrapp/testing": "file:../../develop/testing"

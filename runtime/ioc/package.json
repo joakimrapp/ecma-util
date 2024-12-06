@@ -10,7 +10,8 @@
     "./events": "./src/events.mjs"
   },
   "imports": {
-    "#events": "./src/events.mjs"
+    "#constants": "./src/constants.mjs",
+    "#events": "./src/debug/events.mjs"
   },
   "scripts": {
     "pretest": "rm -rf output ; mkdir -p output",
@@ -19,12 +20,16 @@
     "test": "if node -v --test-coverage-include=*.mjs > /dev/null 2>&1; then npm run test:coverage; else npm run test:default; fi",
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
   },
-  "devDependencies": {
-    "@jrapp/log": "file:../log",
+  "dependencies": {
     "@jrapp/error": "file:../error",
     "@jrapp/is-type": "file:../is-type",
     "@jrapp/object": "file:../object",
     "@jrapp/node-fs": "file:../node-fs",
+    "@jrapp/reflection": "file:../reflection",
+    "@jrapp/iterable": "file:../iterable",
+    "@jrapp/xtermify": "file:../xtermify"
+  },
+  "devDependencies": {
     "@jrapp/testing": "file:../../develop/testing"
   }
 }
