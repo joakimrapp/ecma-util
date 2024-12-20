@@ -9,7 +9,8 @@ const
 	re = /^[a-zA-Z]/,
 	test = a => re.test( a ) && ( !not.includes( a ) );
 
-export default function*f() {
+export default function*f( ...exclude ) {
+	exclude = new Set( exclude );
 	for( let s, i = 0 ; s = i.toString( 8 ).match( /..?(?=(..)*$)/g ).map( i => dic[ parseInt( i, 8 ) ] ).join`` ; i++ )
-		if( test( s ) )
+		if( test( s ) && ( !exclude.has( s ) ) )
 			yield s; }

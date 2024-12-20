@@ -1,8 +1,5 @@
 NPM=npm
 
-install:
-	@$(NPM) -s i;
-
 i: install
 
 lint:
@@ -10,3 +7,13 @@ lint:
 
 test:
 	@$(NPM) -s test;
+
+purge:
+	@rm -rf node_modules
+	@rm -f package-lock.json
+	@find . -maxdepth 3 -mindepth 3 -type d -name node_modules -exec rm -rf {} \;
+	@find . -maxdepth 3 -mindepth 3 -type d -name output -exec rm -rf {} \;
+	@find . -maxdepth 3 -mindepth 3 -type f -name package-lock.json -exec rm {} \;
+
+ii:
+	@$(NPM) -s install;

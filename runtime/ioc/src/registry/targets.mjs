@@ -1,22 +1,24 @@
-import { AMBIGUOUS } from '../errors.mjs';
-import { emit, REGISTERING } from '../debug/events.mjs';
-import { from } from '@jrapp/object';
+import { MISSING, CYCLIC } from '#errors';
+import { emit, BUILDING } from '#events';
 
 const
-	DEFAULT = '<default>',
+	DEFAULT = 'default',
 	get = a => [ ...new Set( a.flat().map( i => i?.match( /\w+/g ) ?? [] ).flat() ) ],
-	add = a => ( a = get( a ) ).length ? a : [ DEFAULT ];
+	find = ( o, a ) => { if( o ) for( let i of a ) for( let [ b, v ] of o ) if( i & b ) return v; };
 
-export default class { #o = {}; #a;
-	constructor( a = [] ) {
-		this.#o = from( ( this.#a = a ).map( ( ...e ) => e ) ); }
-	export() { return [ ...this.#a ]; }
-	clone() { return new this.constructor( this.export() ); }
-	*map() { for( let i of arguments ) if( i in this.#o ) yield this.#o[ i ]; }
-	add( a ) { return add( a ).map( i => [ i, ( this.#o[ i ] ??= ( this.#a.push( i ) - 1 ) ) ] ); }
-	has( a ) { return [ ...this.map( DEFAULT, ...get( a ) ) ]; }
-	get( a ) { return [ ...this.map( ...get( a ), DEFAULT ) ]; }
-	set( [ o = {}, a = [], i = a.length ] = [], n, bt, l, f, s, t, d, r ) {
-		emit[ REGISTERING ]?.( { n, ...bt?.length && { bt }, l, ...s && { s }, d, r } );
-		bt = this.add( bt ).map( ( [ btk, bti ] ) => ( bti in o ) ? AMBIGUOUS.throw( n, btk ) : ( o[ bti ] = i, bti ) );
-		return [ o, [ ...a, [ [ l, f, s, t, d, r ], bt ] ] ]; } }
+class Targets { #o; #a; #i;
+	constructor( o, ...a ) { this.#o = o; this.#a = a; this.#i = a.reduce( ( m, i ) => m + i, 0 ); }
+	has( n ) { return this.#o[ n ]?.some( a => a[ 0 ] & this.#i ) }
+	get( n, ...a ) { return a.includes( n ) ? CYCLIC.throw( n, ...a ) : [ n, ...find( this.#o[ n ], this.#a ) ?? MISSING.throw( n, ...a ) ]; } }
+
+export default class extends Array { #o = {};
+	get( s ) { return this.#o[ s ] ??= ( 1 << ( this.push( s ) - 1 ) ); }
+	add( a ) { return get( a ).reduce( ( i, s ) => i + this.get( s ), 0 ) || this.get( DEFAULT ); }
+	build( o, a ) {
+		a = get( ...a ).filter( s => s in this.#o ).map( s => this.#o[ s ] );
+		emit[ BUILDING ]?.( a.length ? a.map( i => this[ Math.log2( i ) ] ) : [ DEFAULT ] );
+		return new Targets( o, ...a, this.get( DEFAULT ) ); }
+	*toStrings( a ) {
+		for( let i = 0 ; a ; i++, a >>= 1 )
+			if( a & 1 )
+				yield this[ i ]; } }

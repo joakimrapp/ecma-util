@@ -1,4 +1,4 @@
 import { fromUrl } from './url.mjs';
-import { resolve, dirname } from './path.mjs';
+import { resolve, dirname as dir } from './path.mjs';
 
-export default ( { url }, ...a ) => resolve( dirname( fromUrl( url ) ), ...a );
+export default ( { url, dirname }, ...a ) => resolve( dirname ?? dir( fromUrl( url ) ), ...a );

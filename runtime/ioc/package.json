@@ -7,10 +7,17 @@
   "type": "module",
   "exports": {
     ".": "./src/index.mjs",
-    "./events": "./src/events.mjs"
+    "./events": "./src/events.mjs",
+    "./import": "./src/container/import.mjs"
   },
   "imports": {
-    "#constants": "./src/constants.mjs",
+    "#service/constants": "./src/service/constants.mjs",
+    "#container": "./src/container.mjs",
+    "#registry": "./src/registry.mjs",
+    "#repository": "./src/repository/index.mjs",
+    "#services": "./src/services.mjs",
+    "#service": "./src/service/index.mjs",
+    "#errors": "./src/errors.mjs",
     "#events": "./src/debug/events.mjs"
   },
   "scripts": {
@@ -25,8 +32,8 @@
     "@jrapp/is-type": "file:../is-type",
     "@jrapp/object": "file:../object",
     "@jrapp/node-fs": "file:../node-fs",
+    "@jrapp/node-path": "file:../node-path",
     "@jrapp/reflection": "file:../reflection",
-    "@jrapp/iterable": "file:../iterable",
     "@jrapp/xtermify": "file:../xtermify"
   },
   "devDependencies": {

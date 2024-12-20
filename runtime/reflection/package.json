@@ -9,7 +9,8 @@
     ".": "./src/index.mjs",
     "./is": "./src/is/index.mjs",
     "./parse": "./src/parse/index.mjs",
-    "./generate": "./src/generate/index.mjs"
+    "./generate": "./src/generate/index.mjs",
+    "./render": "./src/render/index.mjs"
   },
   "scripts": {
     "pretest": "rm -rf output ; mkdir -p output",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "@jrapp/is-type": "file:../is-type",
+    "@jrapp/node-path": "file:../node-path",
     "@jrapp/object": "file:../object"
   },
   "devDependencies": {

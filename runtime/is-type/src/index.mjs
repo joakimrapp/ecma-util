@@ -14,6 +14,7 @@ export const
 	isArray				= Array.isArray,
 	isReadable		= a => a?.[ Symbol.asyncIterator ] instanceof Function,
 	isStream			= a => a instanceof ReadableStream,
+	isRegExp			= a => a instanceof RegExp,
 	isBuffer			= a => a instanceof ArrayBuffer,
 	isView				= ArrayBuffer.isView,
 	isBytes				= a => a instanceof Uint8Array,
