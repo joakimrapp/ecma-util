@@ -1,41 +1,28 @@
-import { isIterable, isDefined, isNullish } from '@jrapp/is-type';
-import { setIterator, IsNew, Next } from './util.mjs';
+import { isIterable } from '@jrapp/is-type';
+import { define } from '@jrapp/object';
+import iterator from './symbol.mjs';
 import array from './array.mjs';
+import all from './all.mjs';
 
-export function *filter( i, f ) { for( let a of i ) if( f( a ) ) yield a; }
-export function *flat( i ) { for( let a of i ) if( isIterable( a ) ) yield* a; else yield a; }
-export function *map( i, f ) { for( let a of i ) yield f( a ); }
-
-
-export function *values( v, f ) { for( ; v != null ; v = f( v ) ) yield v; }
-export function find( i, f ) { for( let a of i ) if( f( a ) ) return a; }
-export const defined = i => filter( i, isDefined );
-export const unique = i => filter( i, IsNew() );
-
-const reduce = ( ...a ) => a.reduce( map );
-
-export default class Iterator {
-	static from() { return new this( ...arguments ); }
-	constructor() { setIterator( this, reduce( ...arguments ) ); }
-	map() { return setIterator( this, map( this, ...arguments ) ); }
-	flat() { return setIterator( this, reduce( flat( this ), ...arguments ) ); }
-	filter( f, ...a ) { return setIterator( this, reduce( filter( this, f ), ...a ) ); }
-	defined() { return this.filter( isDefined, ...arguments ); }
-	unique() { return this.filter( IsNew(), ...arguments ); }
+class Iterator {
+	static *generate( i, f, whilst ) { for( ; whilst?.( i ) ?? true ; i = f( i ) ) yield i; }
+	constructor( a ) { define( this, iterator, { value: a[ iterator ].bind( a ) } ); }
+	*map( f ) { for( let a of this ) yield f( a ); }
+	*flat() { for( let a of this ) if( isIterable( a ) ) yield* a; else yield a; }
+	*filter( f ) { for( let a of this ) if( f( a ) ) yield a; }
+	*defined( f ) { for( let a of this ) if( a != null ) yield a; }
+	*unique() { const s = new Set(); for( let a of this ) if( s.size !== s.add( a ).size ) yield a; }
+	reduce( f, v ) { for( let a of this ) v = ( v == null ) ? a : v = f( v, a ); return v; }
 	array() { return array( this, ...arguments ); }
-	find() { return find( this, ...arguments ); } }
+	find( f ) { for( let a of this ) if( f( a ) ) return a; }
+	all() { return all( this ); } }
 
-export const
-	iterator = Iterator.from.bind( Iterator ),
-	generate = ( ...a ) => Iterator.from( values( ...a ) );
-
-Arg.from( iterator( e, n => generate( e, i => i.match( re )?.[ 0 ] ?? reject() ).find( i => this.has() ) ).unique( i => this.get( i, ...a ) ).peek( verify ) )
-
-;
-class Arg extends Array {
-	static get( o, a ) { return this.from(  ); }
-	get() { return all( this.map( i => i.res( ...arguments ) ) ); }
-}
-
-
-find( generate( e, /^.+?(?=\.\w+$)/ ), i => this.has( i ) ) ?? X.throw( n, p )
+export default class I extends Iterator {
+	static from() { return new this( ...arguments ); }
+	static generate() { return new this( super.generate( ...arguments ) ); }
+	map() { return this.new( super.map( ...arguments ) ); }
+	flat() { return this.new( super.flat( ...arguments ) ); }
+	filter() { return this.new( super.filter( ...arguments ) ); }
+	defined() { return this.new( super.defined( ...arguments ) ); }
+	unique() { return this.new( super.unique( ...arguments ) ); }
+	new() { return new this.constructor( ...arguments ); } }

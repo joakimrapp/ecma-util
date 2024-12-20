@@ -7,7 +7,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.mjs",
-    "./build": "./src/build.mjs",
+    "./iterator": "./src/iterator.mjs",
     "./async": "./src/async/index.mjs",
     "./generate": "./src/generate/index.mjs"
   },
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@jrapp/is-type": "file:../is-type",
-    "@jrapp/object": "file:../object",
+    "@jrapp/object": "file:../object"
   },
   "devDependencies": {
     "@jrapp/testing": "file:../../develop/testing"
