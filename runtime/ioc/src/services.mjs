@@ -12,5 +12,4 @@ export default class extends Services { #b; #s = new Sources(); #t = new Types( 
 	include( ...a ) { return ( a.forEach( n => this.get( n ) ), this ); }
 	export() {
 		this.include( ...arguments );
-		return Export.from( this );
-	} }
+		return Export.from( this ); } }

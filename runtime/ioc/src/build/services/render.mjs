@@ -11,7 +11,7 @@ export default {
 		for( let a of services )
 			yield `\t${renderService( a )}`; },
 	*export( path, sources, services ) {
-		yield* this.sources( path, sources )
+		yield* this.sources( path, sources );
 		yield '\nimport ioc from \'@jrapp/ioc/import\';';
 		yield 'export default ioc( [';
 		yield [ ...this.services( services ) ].join( ',\n' );

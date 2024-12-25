@@ -1,6 +1,5 @@
-import { NAMESPACE } from '../service/constants.mjs';
+import { NAMESPACE, INJECTS } from '../service/constants.mjs';
 import { SOURCE } from '#errors';
-import { keys, entries } from '@jrapp/object';
 import { ids } from '@jrapp/reflection/generate';
 
 const

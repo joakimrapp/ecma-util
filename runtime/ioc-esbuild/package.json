@@ -1,25 +1,14 @@
 {
-  "name": "@jrapp/ioc",
+  "name": "@jrapp/ioc-esbuild",
   "version": "1.0.0",
-  "description": "IoC",
+  "description": "IoC Builder",
   "author": "Joakim J. Rapp",
   "license": "ISC",
   "type": "module",
   "exports": {
-    ".": "./src/index.mjs",
-    "./events": "./src/events.mjs",
-    "./import": "./src/container/import.mjs"
+    ".": "./src/index.mjs"
   },
-  "imports": {
-    "#service/constants": "./src/service/constants.mjs",
-    "#container": "./src/container.mjs",
-    "#registry": "./src/registry.mjs",
-    "#repository": "./src/repository/index.mjs",
-    "#services": "./src/services.mjs",
-    "#service": "./src/service/index.mjs",
-    "#errors": "./src/errors.mjs",
-    "#events": "./src/debug/events.mjs"
-  },
+  "imports": {},
   "scripts": {
     "pretest": "rm -rf output ; mkdir -p output",
     "test:default": "node --test",
@@ -30,12 +19,13 @@
   "dependencies": {
     "@jrapp/error": "file:../error",
     "@jrapp/is-type": "file:../is-type",
-    "@jrapp/object": "file:../object",
-    "@jrapp/node-fs": "file:../node-fs",
     "@jrapp/iterable": "file:../iterable",
+    "@jrapp/node-fs": "file:../node-fs",
     "@jrapp/node-path": "file:../node-path",
+    "@jrapp/object": "file:../object",
     "@jrapp/reflection": "file:../reflection",
-    "@jrapp/xtermify": "file:../xtermify"
+    "@jrapp/xtermify": "file:../xtermify",
+    "esbuild": "^0.24.2"
   },
   "devDependencies": {
     "@jrapp/testing": "file:../../develop/testing"

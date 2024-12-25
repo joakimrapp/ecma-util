@@ -1,23 +1,16 @@
+export { isStream, isRegExp, isBuffer, isBytes, isFn, isError, isPromise } from './instanceof.mjs';
+export { isNumber, isInteger, isArray, isView } from './alias.mjs';
+export { isBoolean, isBigint, isString } from './typeof.mjs';
+
+import { isInteger } from './alias.mjs';
+
 export const
 	isNullish			= a => a == null,
 	isDefined			= a => a != null,
 	isPrimitive		= a => Object( a ) !== a,
-	isBoolean			= a => typeof a === 'boolean',
-	isBigint			= a => typeof a === 'bigint',
-	isString			= a => typeof a === 'string',
-	isNumber			= Number.isFinite,
-	isInteger			= Number.isInteger,
-	isUInt				= a => isInteger( a ) && ( a >= 0 ),
 	isObject			= a => Object( a ) === a,
+	isUInt				= a => isInteger( a ) && ( a >= 0 ),
 	isLiteral			= a => isObject( a ) && ( Object.getPrototypeOf( a ) === Object.prototype ),
 	isIterable		= a => isObject( a ) && ( a?.[ Symbol.iterator ] instanceof Function ),
-	isArray				= Array.isArray,
-	isReadable		= a => a?.[ Symbol.asyncIterator ] instanceof Function,
-	isStream			= a => a instanceof ReadableStream,
-	isRegExp			= a => a instanceof RegExp,
-	isBuffer			= a => a instanceof ArrayBuffer,
-	isView				= ArrayBuffer.isView,
-	isBytes				= a => a instanceof Uint8Array,
-	isFn					= a => a instanceof Function,
-	isError				= a => a instanceof Error,
-	isPromise			= a => a instanceof Promise;
+	isReadable		= a => a?.[ Symbol.asyncIterator ] instanceof Function
+;

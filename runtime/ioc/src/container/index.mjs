@@ -26,4 +26,4 @@ export default class extends Map { #c; #i; #ns = {};
 	async res( o, f ) {
 		if( o.i ) return f?.( this, o ) ?? o.i( ...await this.all( o ) );
 		else return this.#i[ o.n ] ?? SCOPE.throw( o.n ); }
-	resolve( a ) { return emit[ RESOLVE ] ? resolve( this, a ) : this.get( a ) } }
+	resolve( a ) { return emit[ RESOLVE ] ? resolve( this, a ) : this.get( a ); } }

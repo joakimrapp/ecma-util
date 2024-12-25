@@ -6,7 +6,7 @@ const
 
 export const
 	getNs = n => n?.match( re ) ?? Array.from( { length: 3 } );
-	
+
 export class Ns extends service( NAMESPACE ) {
 	getN( k ) {  }
 };

@@ -14,7 +14,7 @@ export default class extends Registry { #p; #o;
 		if( isFn( a ) ) a( this );
 		else if( isLiteral( a ) ) for( let [ k, v ] of entries( a ) ) if( k in this )
 			if( isLiteral( v ) ) for( let e of entries( v ) ) this[ k ]( ...e );
-			else if( isIterable( v ) ) for( let e of v ) this[ k ]( e )
+			else if( isIterable( v ) ) for( let e of v ) this[ k ]( e );
 			else if( isString( v ) ) this[ k ]( v ); }
 	register( n, b, l, f ) {
 		if( f == null ) return super.register( n, b, l );

@@ -15,6 +15,6 @@ const
 			default: return `input.${life( t )}`; } } },
 	sets = ( T, t, l = t & LIFE, value = name( t ) ) =>
 		( defines( define( T, 'name', { value } ).prototype, { type: { value }, t: { value: t }, l: { value: l } } ), T ),
-	type = t => sets( class extends Service {}, t )
+	type = t => sets( class extends Service {}, t );
 
 export default t => type[ t ] ??= type( t );

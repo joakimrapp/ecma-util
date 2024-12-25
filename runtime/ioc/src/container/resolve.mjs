@@ -24,7 +24,7 @@ async function res( c, a ) {
 function *get( l, [ a, [ tc, ti, tf, tr ], ...r ] ) {
 	yield [ a, l, tf != null, r.map( ( [ { n } ] ) => n ), tc, ti, tr ];
 	for( let i of r ) yield* get( l + 1, i ); }
-	
+
 function *flat() { for( let i of arguments ) { yield* get( 0, i ); } }
 
 export default async function( c, a ) {

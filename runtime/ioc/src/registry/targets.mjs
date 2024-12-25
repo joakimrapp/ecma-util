@@ -8,7 +8,7 @@ const
 
 class Targets { #o; #a; #i;
 	constructor( o, ...a ) { this.#o = o; this.#a = a; this.#i = a.reduce( ( m, i ) => m + i, 0 ); }
-	has( n ) { return this.#o[ n ]?.some( a => a[ 0 ] & this.#i ) }
+	has( n ) { return this.#o[ n ]?.some( a => a[ 0 ] & this.#i ); }
 	get( n, ...a ) { return a.includes( n ) ? CYCLIC.throw( n, ...a ) : [ n, ...find( this.#o[ n ], this.#a ) ?? MISSING.throw( n, ...a ) ]; } }
 
 export default class extends Array { #o = {};

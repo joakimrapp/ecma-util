@@ -7,6 +7,6 @@ const
 	parse = ( t, f, a, s, d = parseArgs( a ) ) => [ t, f, d, d.includes( IOC ) && stringify( a ).match( reResolves ) || [], ...s ?? [] ];
 
 export default ( l, f, s ) => {
-		if( isFn( f?.[ INJECT ] ) ) return parse( BIND | ( l & LIFE ), f, f[ INJECT ], s );
-		else if( isFn( f ) ) return parse( ( isClass( f ) ? NEW : INVOKE ) | ( l & LIFE ), f, f, s );
-		else return [ ( l & LIFE ) === SINGLETON ? SINGLETON : SCOPED ]; };
+	if( isFn( f?.[ INJECT ] ) ) return parse( BIND | ( l & LIFE ), f, f[ INJECT ], s );
+	else if( isFn( f ) ) return parse( ( isClass( f ) ? NEW : INVOKE ) | ( l & LIFE ), f, f, s );
+	else return [ ( l & LIFE ) === SINGLETON ? SINGLETON : SCOPED ]; };

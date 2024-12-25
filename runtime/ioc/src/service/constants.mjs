@@ -12,5 +12,5 @@ export const
 	TRANSIENT			= 0b00_01,
 	SINGLETON			= 0b00_10,
 	SCOPED				= 0b00_11,
-	
+
 	INJECT 				= 'inject';
