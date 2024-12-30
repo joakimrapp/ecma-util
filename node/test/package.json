@@ -1,0 +1,17 @@
+{
+  "name": "@jrapp/node-test",
+  "version": "1.0.0",
+  "description": "Simplified assert",
+  "author": "Joakim J. Rapp",
+  "license": "ISC",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "scripts": {
+    "clean": "rm -rf package-lock.json && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@jrapp/is": "file:../../default/is"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@jrapp/yaml",
+  "version": "1.0.0",
+  "description": "YAML parse/render",
+  "author": "Joakim J. Rapp",
+  "license": "ISC",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./parse": "./src/parse/index.mjs",
+    "./render": "./src/render/index.mjs"
+  },
+  "imports": {
+    "#parse": "./src/parse/index.mjs",
+    "#render": "./src/render/index.mjs"
+  },
+  "scripts": {
+    "pretest": "rm -rf output ; mkdir -p output",
+    "test:default": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage --no-warnings --test-coverage-include=src/**/*.mjs --test-coverage-exclude=src/**/*.test.mjs --test-reporter=spec --test-reporter=lcov --test-reporter-destination=stdout --test-reporter-destination=output/lcov.info",
+    "test": "if node -v --test-coverage-include=*.mjs > /dev/null 2>&1; then npm run test:coverage; else npm run test:default; fi",
+    "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
+  },
+  "dependencies": {
+    "@jrapp/is": "file:../is"
+  },
+  "devDependencies": {
+    "@jrapp/node-test": "file:../../node/test"
+  }
+}
