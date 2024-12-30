@@ -3,19 +3,19 @@
 // import log from '@jrapp/log/local';
 // import Registry from '../../src/modules/registry.mjs';
 // import { SCANNING, IMPORTING, REGISTERING, COMPILING, INCLUDING } from '#events';
-// 
+//
 // const path = resolve( import.meta.dirname, '../data' );
-// 
-// 
-// 
-// 
-// 
+//
+//
+//
+//
+//
 // test( 'find', async o => {
 // 	const registry = new Registry();
 // 	await registry.scan( path );
 // 	registry.targets( 'buildTarget1' ).event( 'event' ).include( 'ns1.name1' );
 // } );
-// 
+//
 
 
 // registry.events.on( SCANNING, p => log.debug( `scanning ${p}` ) );

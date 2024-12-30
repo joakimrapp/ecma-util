@@ -2,7 +2,7 @@ export function *entries( o, fn ) {
 	let value;
 	if( fn )
 		for( let key in o ) {
-			value = o[ key ]
+			value = o[ key ];
 			if( value != null )
 				yield fn( key, value ); }
 	else

@@ -11,7 +11,7 @@ export const
 		keys,
 		fromEntries: from,
 		values,
-		
+
 		create,
 		freeze,
 		preventExtensions,

@@ -38,4 +38,4 @@ const
 test( 'is', async o => {
 	for( let [ n, f ] of Object.entries( all ) )
 		await o.test( n, async o => truthy( tests.every( ( [ i, ...a ] ) => a.includes( f ) ? f( i ) : !f( i ) ) ) );
-} )
+} );

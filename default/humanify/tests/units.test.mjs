@@ -24,6 +24,6 @@ test( 'units', async o => {
 		await o.test( 'should handle < 1000 meter', async o =>
 			equals( meter( 224 ), '224 m' ) );
 		await o.test( 'should handle > 1000 meter', async o =>
-			equals( meter( 2240, 1 ), '2.2 km' ) );	
+			equals( meter( 2240, 1 ), '2.2 km' ) );
 	} );
 } );

@@ -10,4 +10,4 @@ export default ( r, s, units ) => {
 		else if( a === 0 ) return `0 ${units[ 0 ]}`;
 		else {
 			const i = min( floor( log( abs( a ) ) / r ), units.length - 1 ), v = i ? ( a / pow( s, i ) ) : a;
-			return `${( i || ( !isInteger( v ) ) ) ? v.toFixed( precision ) : v} ${units[ i ]}`; } }; }
+			return `${( i || ( !isInteger( v ) ) ) ? v.toFixed( precision ) : v} ${units[ i ]}`; } }; };

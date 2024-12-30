@@ -7,13 +7,13 @@ const path = resolve( import.meta.dirname, './data' );
 
 const { log } = console;
 // enable( ALL );
-disable( RESOLVING, INJECTING )
+disable( RESOLVING, INJECTING );
 listen( out );
 
 const
 	registry = await new Registry().scan( path ),
 	build = registry.build();
-	
+
 await build.export( 'ns1.name2' ).write( resolve( path, '../sindex.mjs' ) );
 
 const container = build.container();

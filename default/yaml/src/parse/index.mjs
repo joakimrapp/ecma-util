@@ -18,10 +18,7 @@ class Node { #o;
 			return this.#o; }
 	next( i ) {
 		const { done, value } = i.next();
-		if( done )
-			return this.root.value;
-		else
-		return this.get( value ).next( i ); }
+		return done ? this.root.value : this.get( value ).next( i ); }
 	get( o ) {
 		return o.i < this.#o.i ? this.parent.get( ...arguments ) : ( o.a ? this.type( 'a', new Node( this, ( o.i += 2 ) ) ) : this ).key( o ); }
 	key( o ) {

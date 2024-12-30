@@ -11,11 +11,11 @@ export class Y {
 }
 
 export const
-	name1 = async ( { ns2: { n2, n3 } } ) => rnd( n2 + n3 ),
-	name2 = async () => rnd(),
-	name3 = async () => rnd(),
-	name4 = async ( { ns2: { n1, n2 } } ) => rnd( n1 + n2 ),
-	name5 = async ( { ns2: { n4, n3 } } ) => rnd( n4 + n3 );
+	name1 = async( { ns2: { n2, n3 } } ) => rnd( n2 + n3 ),
+	name2 = async() => rnd(),
+	name3 = async() => rnd(),
+	name4 = async( { ns2: { n1, n2 } } ) => rnd( n1 + n2 ),
+	name5 = async( { ns2: { n4, n3 } } ) => rnd( n4 + n3 );
 
 export const
 	$ioc = {

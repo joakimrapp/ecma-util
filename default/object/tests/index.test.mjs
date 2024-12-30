@@ -38,7 +38,6 @@ test( 'object', async o => {
 	await o.test( 'groupBy', async o => {
 		const a = groupBy( [ { a: 'B' }, { a: 'A' }, { a: 'A' }, { a: 'A' }, { a: 'B' } ], ( o ) => o.a );
 		await o.test( 'should group by property', async o =>
-			equals(a, { B: [ { a: 'B' }, { a: 'B' } ], A: [ { a: 'A' }, { a: 'A' }, { a: 'A' } ] } )
-			);
+			equals( a, { B: [ { a: 'B' }, { a: 'B' } ], A: [ { a: 'A' }, { a: 'A' }, { a: 'A' } ] } ) );
 	} );
 } );
