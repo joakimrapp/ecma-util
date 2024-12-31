@@ -1,7 +1,7 @@
-import { AMBIGUOUS } from '#errors';
+import { AMBIGUOUS, INJECTABLE } from '#errors';
 import { emit, REGISTERING } from '#events';
 import { entries, from } from '@jrapp/object';
-import { register } from '#service';
+import service from './service.mjs';
 import Targets from './targets.mjs';
 
 export default class { #o; #b = new Targets();
@@ -13,6 +13,6 @@ export default class { #o; #b = new Targets();
 	add( n, b, ...a ) {
 		b = this.#b.add( b );
 		this.#o[ n ]?.forEach( ( [ i ] ) => ( i & b ) && AMBIGUOUS.throw( n, [ ...this.#b.toStrings( i & b ) ] ) );
-		a = register( ...a );
+		a = service( ...a ) ?? INJECTABLE.throw( n );
 		emit[ REGISTERING ]?.( n, [ ...this.#b.toStrings( b ) ], ...a );
 		( this.#o[ n ] ??= [] ).push( [ b, a ] ); } }

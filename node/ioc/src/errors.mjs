@@ -8,6 +8,6 @@ export const
 	EXPORT			= create( 'EXPORT', ( n, p ) => `injectable not exported: ${n} (${p})` ),
 	MISSING			= create( 'MISSING', ( n, p ) => `not registered: ${p == null ? n : `${p}( ${n} )`}` ),
 	AMBIGUOUS 	= create( 'AMBIGUOUS', ( n, b ) => `ambiguous target: ${n} ( ${b.join( ', ' )} )` ),
-	COLLISION		= create( 'COLLISION', ( n, ns = n ) => `service ${n} collides with namespace ${ns}` ),
+	COLLISION		= create( 'COLLISION', ( ns, n ) => `service ${n} collides with namespace ${ns}` ),
 	ARGUMENT		= create( 'ARGUMENT', ( a, n ) => `transient argument cannot be deconstructed: ${n} ( { ${a} } )` ),
-	LIFESTYLE		= create( 'LIFESTYLE', ( n, p ) => p ? `singleton ${p} cannot resolve scoped ${n}` : `${n} cannot be resolved in singleton context` );
+	LIFESTYLE		= create( 'LIFESTYLE', ( n, ...a ) => `singleton ${n} cannot resolve scoped ${a.join( ', ' )}` );

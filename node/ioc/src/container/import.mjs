@@ -1,14 +1,11 @@
 import { NAMESPACE } from '#constants';
-import { Arg, Args } from '#service';
-import { isIterable } from '@jrapp/is';
-import Services from '#services';
+import { Args } from '#service';
 import Container from './index.mjs';
+import service from '#service';
 
-export default function( a ) {
-	const NSI = [], NI = [], s = new Services();
+export default function( a, i ) {
+	const NS = [], S = [], s = new Map();
 	for( let [ t, nsi, k, d, f ] of a ) {
-		const ns = NSI[ nsi ], n = ns ? `${ns}.${k}` : k;
-		( t === NAMESPACE ) ? NSI.push( n ) : NI.push( n );
-		if( d ) s.import( n, ns, k, t, f, Args.from( d, e => isIterable( e ) ? Arg.from( e, i => s.get( NI[ i ] ) ) : s.get( NI[ e ] ) ) );
-		else s.import( n, ns, k, t ); }
-	return Container.from( s, ...arguments ); }
+		const ns = NS[ nsi ], n = nsi ? `${ns.n}.${k}` : k;
+		( t === NAMESPACE ) ? NS.push( { n, ns, k } ) : s.set( n, ( S[ S.length ] = service( t ).from( [ n, ns, k ], Args.import( S, d ), f ) ) ); }
+	return new Container( s, i ); }

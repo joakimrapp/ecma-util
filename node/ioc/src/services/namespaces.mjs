@@ -1,11 +1,26 @@
 import { COLLISION } from '#errors';
-import { Ns, getNs } from '#service';
+import { NAMESPACE } from '#constants';
+import { define, defines, enumerable, defineName } from '@jrapp/object';
 
-export default class extends Map { #s = new Set();
-	constructor() { super( [ [ new Ns ] ] ); }
-	get( nsN, sN ) { return super.get( nsN ) ?? ( this.#s.has( nsN ) ? COLLISION.throw( nsN, sN ) : this.add( getNs( nsN ), sN ) ); }
-	set( o ) { return ( super.set( o.n, o ), o ); }
-	add( [ n, ns, k ], sN ) { return ( this.set( new Ns( [ n, this.get( ns, sN ), k ] ) ) ); }
-	service( sN ) {
-		const [ n, ns, k ] = this.has( sN ) ? COLLISION.throw( sN ) : ( this.#s.add( sN ), getNs( sN ) );
-		return [ n, this.get( ns, sN ), k ]; } }
+const
+	re = /^(?:(.+?)\.)?(\w+)$/;
+
+export class Namespace {
+	static {
+		define( defineName( this, 'namespace' ).prototype, 't', { value: NAMESPACE } ); }
+	constructor( n, ns, k ) {
+		defines( this, { n: { value: n, enumerable }, ns: { value: ns }, k: { value: k } } ); } }
+
+export default class extends Map { #s = new Set;
+	constructor() {
+		super( [ [ new Namespace ] ] ); }
+	set( o ) {
+		return ( super.set( o.n, o ), o ); }
+	get( name ) {
+		return super.get( name ) ?? this.set( this.#s?.has( name ) ? COLLISION.throw( ...arguments ) : new Namespace( ...this.arg( ...arguments ) ) ); }
+	arg( name, serviceName ) {
+		const [ n, ns, k ] = name?.match( re ) ?? Array.from( { length: 3 } );
+		return [ n, this.get( ns, serviceName ), k ]; }
+	service( name ) {
+		this.has( name ) ? COLLISION.throw( name, ...arguments ) : this.#s.add( name );
+		return this.arg( name, ...arguments ); } }

@@ -13,7 +13,7 @@
   "imports": {
     "#constants": "./src/constants.mjs",
     "#errors": "./src/errors.mjs",
-    "#events": "./src/events.mjs",
+    "#events": "./src/events/index.mjs",
     "#build": "./src/build/index.mjs",
     "#container": "./src/container/index.mjs",
     "#registry": "./src/registry/index.mjs",
