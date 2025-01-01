@@ -16,7 +16,7 @@
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
   },
   "dependencies": {
-    "@jrapp/is-type": "file:../../default/is",
+    "@jrapp/is": "file:../../default/is",
     "@jrapp/object": "file:../../default/object",
     "@jrapp/node-fs": "file:../node-fs"
   },

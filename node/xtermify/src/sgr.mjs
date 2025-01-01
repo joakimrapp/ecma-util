@@ -1,7 +1,8 @@
 import { int, hex } from './parse.mjs';
-import { isArray, isString, isUInt } from '@jrapp/is-type';
+import { isArray, isString, isInteger } from '@jrapp/is';
 
 const
+	isUInt = a => isInteger( a ) && ( a >= 0 ),
 	sgr = ( ...a ) => `\x1b[${a.join( ';' )}m`,
 	is = a => isArray( a ) && ( a.length === 3 ),
 	is24 = ( process.stdout.getColorDepth?.() === 24 ),
