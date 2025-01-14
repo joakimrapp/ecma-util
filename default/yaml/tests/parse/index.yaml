@@ -1,7 +1,7 @@
 string-flow: hello this is a string
 string-flow-multiline: hello
     this is another string
-string-flow-single-quoted: 'this is a "test" string'
+string-flow-single-quoted: 'this is\n a "test" string'
 string-flow-double-quoted: "this is another 'test' string with a comment after"  # some comment
 string-block-folded: >-
   this is a
@@ -20,13 +20,19 @@ string-block-keep: |+
   this is a
   kept string
 
-
 number: 1.2
 boolean: true
-array:
+dwd: 1
+
+array1:
+- 1
+- 2
+array2:
   - 1
   - 2
+
 json-array: [ 1, 2, 3, 4, 5 ]
+# a comment
 more-complex-object:
   with-a-property: 4
   and-another:

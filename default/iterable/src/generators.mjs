@@ -1,14 +1,9 @@
-export function *entries( o, fn ) {
-	let value;
-	if( fn )
-		for( let key in o ) {
-			value = o[ key ];
-			if( value != null )
-				yield fn( key, value ); }
-	else
-		for( let key in o ) {
-			yield [ key, o[ key ] ]; } }
+export function *entries( o, fn, all ) {
+	let v;
+	for( let k in o )
+		if( v = o[ k ], fn && ( all || v != null ) && ( v = fn( v, k, o ) ), all || v != null )
+			yield [ k, v ]; }
 
-export function *generate( i, f, whilst ) {
-	for( ; whilst?.( i ) ?? true ; i = f( i ) )
+export function *generate( i, f ) {
+	for( ; i != null ; i = f( i ) )
 		yield i; }

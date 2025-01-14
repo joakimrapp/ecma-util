@@ -1,4 +1,6 @@
-export async function s1() { return 1; }
+import { setTimeout as wait } from 'node:timers/promises';
+
+export async function s1() { return wait( 10, 1 ); }
 
 export const $ioc = {
 	namespace: 'ns1',

@@ -8,17 +8,17 @@
   "exports": {
     ".": "./src/index.mjs",
     "./events": "./src/events.mjs",
-    "./import": "./src/container/import.mjs"
+    "./import": "./src/container/decode.mjs"
   },
   "imports": {
     "#constants": "./src/constants.mjs",
     "#errors": "./src/errors.mjs",
-    "#events": "./src/events/index.mjs",
-    "#build": "./src/build/index.mjs",
     "#container": "./src/container/index.mjs",
+    "#events": "./src/events/index.mjs",
+    "#ns": "./src/container/ns.mjs",
     "#registry": "./src/registry/index.mjs",
-    "#service": "./src/service/index.mjs",
-    "#services": "./src/services/index.mjs"
+    "#service": "./src/container/service.mjs",
+    "#services": "./src/container/services.mjs"
   },
   "scripts": {
     "pretest": "rm -rf output ; mkdir -p output",
@@ -33,6 +33,8 @@
     "@jrapp/object": "file:../../default/object",
     "@jrapp/node-fs": "file:../fs",
     "@jrapp/iterable": "file:../../default/iterable",
+    "@jrapp/humanify": "file:../../default/humanify",
+    "@jrapp/regexp": "file:../../default/regexp",
     "@jrapp/node-path": "file:../path",
     "@jrapp/reflection": "file:../reflection",
     "@jrapp/xtermify": "file:../xtermify"

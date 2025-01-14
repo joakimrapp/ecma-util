@@ -3,7 +3,8 @@ import { define } from '@jrapp/object';
 import { iterator } from './symbol.mjs';
 
 export default class {
-	constructor( a ) { define( this, iterator, { value: a[ iterator ].bind( a ) } ); }
+	constructor( a ) {
+		define( this, iterator, { value: a[ iterator ].bind( a ) } ); }
 	*map( f ) {
 		for( let a of this )
 			yield f( a ); }

@@ -10,4 +10,5 @@ export const
 	AMBIGUOUS 	= create( 'AMBIGUOUS', ( n, b ) => `ambiguous target: ${n} ( ${b.join( ', ' )} )` ),
 	COLLISION		= create( 'COLLISION', ( ns, n ) => `service ${n} collides with namespace ${ns}` ),
 	ARGUMENT		= create( 'ARGUMENT', ( a, n ) => `transient argument cannot be deconstructed: ${n} ( { ${a} } )` ),
+	CONTAINER		= create( 'CONTAINER', ( n, ...a ) => `scoped ${n} cannot resolve in singleton container` ),
 	LIFESTYLE		= create( 'LIFESTYLE', ( n, ...a ) => `singleton ${n} cannot resolve scoped ${a.join( ', ' )}` );

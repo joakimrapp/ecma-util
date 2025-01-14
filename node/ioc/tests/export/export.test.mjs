@@ -12,7 +12,7 @@ test( 'export', async o => {
 	await rm( output );
 	await md( output );
 	const registry = await new Registry().scan( files );
-	await registry.build().export( 'ns2.s4' ).write( exported );
+	await registry.build().write( exported, 'ns2.s4' );
 	const { default: container } = await import( exported );
 
 	await o.test( 'should get same result from export and original', async() =>

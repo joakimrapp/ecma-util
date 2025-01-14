@@ -22,7 +22,8 @@
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf output"
   },
   "dependencies": {
-    "@jrapp/is": "file:../is"
+    "@jrapp/is": "file:../is",
+    "@jrapp/byte-array": "file:../byte-array"
   },
   "devDependencies": {
     "@jrapp/node-test": "file:../../node/test"
