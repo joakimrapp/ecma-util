@@ -9,7 +9,7 @@ export const
 		getOwnPropertySymbols: symbols,
 		hasOwn: has,
 		keys,
-		fromEntries: from,
+		fromEntries: object,
 		values,
 
 		create,

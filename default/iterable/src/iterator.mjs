@@ -2,7 +2,7 @@ import array from './array.mjs';
 import all from './all.mjs';
 import Iterator from './iterator-generators.mjs';
 import { entries, generate } from './generators.mjs';
-import { defines, from } from '@jrapp/object';
+import { defines, object } from '@jrapp/object';
 
 export default class extends Iterator {
 	static from( a, f ) { return f ? new this( a ).map( f ) : new this( ...arguments ); }
@@ -26,6 +26,6 @@ export default class extends Iterator {
 	all() {
 		return all( this ); }
 	object() {
-		return from( this ); }
+		return object( this ); }
 	defines( o ) {
-		return defines( o, from( this ) ); } }
+		return defines( o, object( this ) ); } }

@@ -1,7 +1,7 @@
 import { INVOKE, BIND, NEW, LIFE, SINGLETON, SCOPED, INJECT } from '#constants';
 import { AMBIGUOUS, INJECTABLE, MISSING, CYCLIC } from '#errors';
 import { emit, REGISTERING, BUILDING } from '#events';
-import { entries, from } from '@jrapp/object';
+import { entries, object } from '@jrapp/object';
 import { stringify, parseArgs, isFn, isClass } from '@jrapp/reflection';
 
 const
@@ -31,7 +31,7 @@ class Targets extends Array { #o = {};
 	*toStrings( a ) { for( let i = 0 ; a ; i++, a >>= 1 ) if( a & 1 ) yield this[ i ]; } }
 
 export default class { #o; #b = new Targets();
-	constructor( b, ...o ) { b?.forEach( s => this.#b.get( s ) ); this.#o = from( o ) ?? {}; }
+	constructor( b, ...o ) { b?.forEach( s => this.#b.get( s ) ); this.#o = object( o ) ?? {}; }
 	build( ...a ) { return this.#b.build( this.#o, a ); }
 	export() { return [ [ ...this.#b ], ...[ ...entries( this.#o ) ].map( ( [ n, a ] ) => [ n, [ ...a ] ] ) ]; }
 	clone() { return new this.constructor( ...this.export() ); }

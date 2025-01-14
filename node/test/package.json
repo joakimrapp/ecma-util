@@ -9,7 +9,8 @@
     ".": "./src/index.mjs"
   },
   "scripts": {
-    "clean": "rm -rf package-lock.json && rm -rf node_modules"
+    "clean": "rm -rf package-lock.json && rm -rf node_modules",
+    "test": "echo test"
   },
   "devDependencies": {
     "@jrapp/is": "file:../../default/is"

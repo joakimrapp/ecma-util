@@ -13,11 +13,11 @@
     "inst:node": "for i in $(find ./node -maxdepth 2 -mindepth 2 -type f -name package.json -exec dirname {} \\;); do npm --prefix $i i & done 2>/dev/null; wait 2>/dev/null;",
     "lint:default": "for i in $(find ./default -maxdepth 2 -mindepth 2 -type f -name package.json -exec dirname {} \\;); do printf \"linting $i... \"; eslint $i; echo \"done\"; done;",
     "lint:node": "for i in $(find ./node -maxdepth 2 -mindepth 2 -type f -name package.json -exec dirname {} \\;); do printf \"linting $i... \"; eslint $i; echo \"done\"; done;",
-    "test:node": "for i in $(find ./node -maxdepth 2 -mindepth 2 -type f -name package.json -exec dirname {} \\;); do echo \"\\ntesting $i...\\n \"; npm --prefix $i test; done;",
-
+    "test:node": "for i in $(find ./node -maxdepth 2 -mindepth 2 -type f -name package.json -exec dirname {} \\;); do printf '\\n\\e[48;5;22;1m\\n\\n %s %s \\n\\e[0m\\n' \"$(printf ' %.0s' {1..30})\" $i && npm --prefix $i test; done;",
+    "test:default": "for i in $(find ./default -maxdepth 2 -mindepth 2 -type f -name package.json -exec dirname {} \\;); do printf '\\n\\e[48;5;22;1m\\n\\n %s %s \\n\\e[0m\\n' \"$(printf ' %.0s' {1..30})\" $i && npm --prefix $i test; done;",
     "postinstall": "npm run inst:default && npm run inst:node",
-    "lint": "npm run lint:default && npm run lint:node",
-    "test": "npm run test:node"
+    "lint": "npm -s run lint:default && npm -s run lint:node",
+    "test": "npm -s run test:node && npm -s run test:default"
   },
   "devDependencies": {
     "eslint": "^9.17.0"
