@@ -45,8 +45,8 @@ class Injectable {
 		if( !x ) return a.length ? i( ...await all( a.map( o => o.get( c, x, this ) ) ) ) : i();
 		else if( x = x?.res( this ), emit[ RESOLVING ]?.( this ), a.length ) a = await all( a.map( o => o.get( c, x, this ) ) );
 		try { return ( x.set( 2 ), emit[ INJECTING ]?.( this, x.get( 2, 1 ) ), await i( ...a ) ); }
-		catch( e ) { throw ( emit[ REJECTED ]?.( this, x.get( 3, 1 ), e ), e ); }
-		finally { emit[ RESOLVED ]?.( this, x.get( 4, 2 ) ); } } }
+		catch( e ) { throw ( x.set( 3 ), emit[ REJECTED ]?.( this, x.get( 3, 1 ), e ), e ); }
+		finally { ( x.set( 4 ), emit[ RESOLVED ]?.( this, x.get( 4, 2 ) ) ); } } }
 
 export default {
 	has() { return /^ioc(Service)?$/.test( ...arguments ); },
